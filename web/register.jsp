@@ -13,7 +13,7 @@
     <body>
         <!-- navbar -->
         <%@include file="normal_navbar.jsp" %>
-        
+
         <main class="p-5">
             <div class="container">
                 <div class="row">
@@ -54,7 +54,11 @@
                                         <label class="form-check-label" for="exampleCheck1">Agree Terms & Conditions</label>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-outline-light secondary-background">Submit</button>
+                                    <div class="container text-center" id="loader" style="display: none;">
+                                        <span class="fa fa-refresh fa-spin fa-4x"></span>
+                                        <h4>Please Wait..</h4>
+                                    </div>
+                                    <button id="submitbtn" type="submit" class="btn btn-outline-light secondary-background">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -67,31 +71,48 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 console.log("loaded...");
-                
-                $('#reg-form').on('submit',function(event){
+
+                $('#reg-form').on('submit', function (event) {
                     event.preventDefault();
                     let form = new FormData(this);
-                    
+                    $('#submitbtn').hide();
+                    $('#loader').show();
+
                     //send to Register Servlet
                     $.ajax({
-                       url: "RegisterServlet",
-                       type: "POST",
-                       data: form,
-                       success: function (data, textStatus, jqXHR) {
-                        console.log(data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                    },
-                    processData: false,
-                    contentType: false
+                        url: "RegisterServlet",
+                        type: "POST",
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                            $('#submitbtn').show();
+                            $('#loader').hide();
+                            
+                            //alert
+                            if(data.trim() === 'done'){
+                            swal("Registered successfully, redirecting to Login Page")
+                                    .then((value) => {
+                                        window.location = "login.jsp";
+                            });
+                        }else{
+                            swal(data);
+                        }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                             $('#submitbtn').show();
+                            $('#loader').hide();
+                            swal("Something went wrong");
+                        },
+                        processData: false,
+                        contentType: false
                     });
                 });
             });
-            
+
         </script>
     </body>
 </html>
