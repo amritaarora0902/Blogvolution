@@ -25,6 +25,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"><span class="fa fa-address-book fa-fw "></span>Contact</a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="login.jsp"><span class="fa fa-user-circle fa-fw "></span>Login</a>
+            </li>
+            
+             <li class="nav-item">
+                <a class="nav-link" href="register.jsp"><span class="fa fa-user-plus fa-fw "></span>Register</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
