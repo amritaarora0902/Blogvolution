@@ -12,11 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile Page</title>
-         <!--css -->
+        <!--css -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="./css/mystyle.css">
-       
+
     </head>
     <body>
         <!-- Navbar  -->
@@ -48,14 +48,11 @@
                         <a class="nav-link" href="#"><span class="fa fa-address-book fa-fw "></span>Contact</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.jsp"><span class="fa fa-user-plus fa-fw "></span>Register</a>
-                    </li>
                 </ul>
-               
+
                 <ul class="navbar-nav mr-right">
-                     <li class="nav-item">
-                        <a class="nav-link" href="register.jsp"><span class="fa fa-user-circle fa-fw "></span><%= user.getName() %></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!" data-toggle="modal" data-target="#profile-modal"><span class="fa fa-user-circle fa-fw "></span><%= user.getName()%></a>
                     </li>
 
                     <li class="nav-item">
@@ -64,8 +61,68 @@
                 </ul>
             </div>
         </nav>
-        
-         <!-- javascript-->
+
+        <!-- Profile modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header secondary-background text-white text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">BlogVolution</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container text-center">
+                            <img src="pics/<%= user.getProfile()%>" class="img-fluid" style="border-radius: 50%; max-width: 150px;" />
+                            <br>
+                            <h5 class="modal-title mt-3" id="exampleModalLabel"><%= user.getName()%></h5>
+
+                            <!-- details -->
+                            <table class="table">
+
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">ID:</th>
+                                        <td><%= user.getId()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email: </th>
+                                        <td><%= user.getEmail()%> </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gender:</th>
+                                        <td><%= user.getGender()%></td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">About:</th>
+                                        <td><%= user.getAbout()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Registered on:</th>
+                                        <td><%= user.getDateTime().toString() %></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- javascript-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
