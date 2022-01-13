@@ -1,3 +1,4 @@
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,18 @@
                                 <br>
                                 <p>Login Here</p>
                             </div>
+                            <%
+                                Message m = (Message) session.getAttribute("message");
+                                if (m != null) {
+                            %>
+                            <div class="alert <%= m.getCssClass() %>" role="alert">
+                                <%= m.getContent()%>
+                            </div>
+                            <%
+                                    session.removeAttribute("message");
+                                }
+
+                            %>
                             <div class="card-body">
                                 <form action="LoginServlet" method="post">
                                     <div class="form-group">
