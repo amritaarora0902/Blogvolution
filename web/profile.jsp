@@ -118,7 +118,7 @@
                             <!-- profile-edit -->
                             <div id="profile-edit" style="display: none;">
                                 <h6 class="mt-2">Please edit carefully!</h6>
-                                <form action="EditServlet" method="post">
+                                <form action="EditServlet" method="post" enctype="multipart/form-data">
                                     <table class="table">
                                         <tr>
                                             <td>Id: </td>
@@ -151,8 +151,7 @@
                                         <tr>
                                             <td>About: </td>
                                             <td>
-                                                <textarea rows="3" class="form-control" name="user-about"><%= user.getAbout()%>
-                                                </textarea>
+                                                <textarea rows="3" class="form-control" name="user_about"><%= user.getAbout()%></textarea>
                                             </td>
                                         </tr>
                                         <tr>
