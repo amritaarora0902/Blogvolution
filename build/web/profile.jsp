@@ -1,3 +1,4 @@
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page errorPage="error_page.jsp" %>
 <%
@@ -61,6 +62,18 @@
                 </ul>
             </div>
         </nav>
+        <%
+            Message m = (Message) session.getAttribute("message");
+            if (m != null) {
+        %>
+        <div class="alert <%= m.getCssClass()%>" role="alert">
+            <%= m.getContent()%>
+        </div>
+        <%
+                session.removeAttribute("message");
+            }
+
+        %>
 
         <!-- Profile modal -->
 

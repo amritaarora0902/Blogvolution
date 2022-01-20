@@ -1,8 +1,11 @@
 package com.tech.blog.servlets;
 
 import com.tech.blog.dao.UserDao;
+import com.tech.blog.entities.Message;
 import com.tech.blog.entities.User;
 import com.tech.blog.helper.ConnectionProvider;
+import com.tech.blog.helper.Helper;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,17 +36,18 @@ public class EditServlet extends HttpServlet {
             String userName = request.getParameter("user_name");
             String userPassword = request.getParameter("user_password");
             String userAbout = request.getParameter("user_about");
- 
+
             //file uploading
             Part part = request.getPart("image");
             String imageName = part.getSubmittedFileName();
-
+            
             //get the user from the session
             HttpSession s = request.getSession();
             User user = (User) s.getAttribute("currentUser");
             user.setEmail(userEmail);
             user.setName(userName);
             user.setPassword(userPassword);
+            String oldFile = user.getProfile();
             user.setProfile(imageName);
             user.setAbout(userAbout);
 
@@ -51,9 +55,24 @@ public class EditServlet extends HttpServlet {
             UserDao dao = new UserDao(ConnectionProvider.getConnection());
             boolean ans = dao.updateUser(user);
             if (ans) {
-                out.println("updated");
+
+                String path = request.getRealPath("/") + "pics" + File.separator + user.getProfile();
+                String pathOld = request.getRealPath("/") + "pics" + File.separator + oldFile;
+                if(!oldFile.equals("default.png")){
+                    Helper.deleteFile(pathOld);
+                }
+                if (Helper.saveFile(part.getInputStream(), path)) {
+                    Message msg = new Message("Profile details updated", "success", "alert-success");
+                    s.setAttribute("message", msg);
+                    response.sendRedirect("profile.jsp");
+                } else {
+                    Message msg = new Message("Something went wrong", "danger", "alert-danger");
+                    s.setAttribute("message", msg);
+                }
             } else {
-                out.println("not updated");
+                Message msg = new Message("Something went wrong", "danger", "alert-danger");
+                s.setAttribute("message", msg);
+                response.sendRedirect("profile.jsp");
             }
 
             out.println("</body>");
