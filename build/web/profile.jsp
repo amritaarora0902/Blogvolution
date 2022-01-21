@@ -211,38 +211,38 @@
                     </div>
                     <div class="modal-body">
 
-                        <form action="AddPostServlet" method="post">
+                        <form action="AddPostServlet" method="post" id="add-post-form">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select class="form-control" name="cid">
                                     <option selected disabled>Select categories</option>
                                     <%
-                                    PostDao postd = new PostDao(ConnectionProvider.getConnection());
-                                    ArrayList<Category> list = postd.getAllCategories();
-                                    for(Category c:list){
+                                        PostDao postd = new PostDao(ConnectionProvider.getConnection());
+                                        ArrayList<Category> list = postd.getAllCategories();
+                                        for (Category c : list) {
                                     %>
-                                    <option><%= c.getName() %></option>
-                                    
-                                    <% } %>
+                                    <option value="<%= c.getCid()%>"><%= c.getName()%></option>
+
+                                    <% }%>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" placeholder="Enter blog Title" class="form-control" />
+                                <input name="pTitle" type="text" placeholder="Enter blog Title" class="form-control" />
                             </div>
                             <div class="form-group">
-                                <textarea placeholder="Enter blog Content" class="form-control" style="height: 200px;"></textarea>
+                                <textarea name="pContent" placeholder="Enter blog Content" class="form-control" style="height: 200px;"></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea placeholder="Enter Code(if any)" class="form-control" style="height: 200px;"></textarea>
+                                <textarea name="pCode" placeholder="Enter Code(if any)" class="form-control" style="height: 200px;"></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="file" />
+                                <input name="pic" type="file" />
                             </div>
+                                <div class="container text-center">
+                                    <button type="submit" class="btn btn-outline-primary">Post</button>
+                                </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -269,6 +269,34 @@
                     }
                 })
             })
+        </script>
+
+        <!--        now add post js-->
+        <script>
+            $(document).ready(function (e) {
+                $('#add-post-form').on('submit', function (event) {
+                    //code when post form gets submitted
+                    event.preventDefault();
+
+                    let form = new FormData(this);
+
+                    //now requesting to server
+                    $.ajax({
+                        url: "AddPostServlet",
+                        type: 'POST',
+                        data: form,
+                        success: function (data, textStatus, jqXHR) {
+                            console.log(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+
+                        },
+                        processData: false,
+                        contentType: false
+                    })
+                })
+            })
+
         </script>
     </body>
 </html>
