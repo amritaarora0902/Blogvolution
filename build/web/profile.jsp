@@ -1,3 +1,7 @@
+<%@page import="com.tech.blog.entities.Category"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tech.blog.helper.ConnectionProvider"%>
+<%@page import="com.tech.blog.dao.PostDao"%>
 <%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page errorPage="error_page.jsp" %>
@@ -211,9 +215,14 @@
                             <div class="form-group">
                                 <select class="form-control">
                                     <option selected disabled>Select categories</option>
-                                    <option>Cat1</option>
-                                    <option>Cat1</option>
-                                    <option>Cat2</option>
+                                    <%
+                                    PostDao postd = new PostDao(ConnectionProvider.getConnection());
+                                    ArrayList<Category> list = postd.getAllCategories();
+                                    for(Category c:list){
+                                    %>
+                                    <option><%= c.getName() %></option>
+                                    
+                                    <% } %>
                                 </select>
                             </div>
                             <div class="form-group">
