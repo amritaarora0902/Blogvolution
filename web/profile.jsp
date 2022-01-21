@@ -48,6 +48,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><span class="fa fa-address-book fa-fw "></span>Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal"><span class="fa fa-pencil-square"></span>New Blog</a>
+                    </li>
 
                 </ul>
 
@@ -189,6 +192,52 @@
                 </div>
             </div>
         </div>
+        <!--  end of profile modal-->
+
+        <!-- blog modal -->
+
+        <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Provide Blog Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="AddPostServlet" method="post">
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option selected disabled>Select categories</option>
+                                    <option>Cat1</option>
+                                    <option>Cat1</option>
+                                    <option>Cat2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter blog Title" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Enter blog Content" class="form-control" style="height: 200px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Enter Code(if any)" class="form-control" style="height: 200px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end of blog modal-->
 
         <!-- javascript-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
