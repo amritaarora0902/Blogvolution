@@ -8,7 +8,21 @@
         <!-- css -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="./css/mystyle.css">
+        <style>
+            .primary-background{
+                background: #E7717D !important;
+            }
+
+            .secondary-background{
+                background: #7E685A !important;
+            }
+
+
+            .banner-background{
+                clip-path: polygon(100% 0, 100% 86%, 0 100%, 0 0);
+            }
+
+        </style>
     </head>
     <body>
         <!-- navbar -->
@@ -91,19 +105,19 @@
                             console.log(data);
                             $('#submitbtn').show();
                             $('#loader').hide();
-                            
+
                             //alert
-                            if(data.trim() === 'done'){
-                            swal("Registered successfully, redirecting to Login Page")
-                                    .then((value) => {
-                                        window.location = "login.jsp";
-                            });
-                        }else{
-                            swal(data);
-                        }
+                            if (data.trim() === 'done') {
+                                swal("Registered successfully, redirecting to Login Page")
+                                        .then((value) => {
+                                            window.location = "login.jsp";
+                                        });
+                            } else {
+                                swal(data);
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                             $('#submitbtn').show();
+                            $('#submitbtn').show();
                             $('#loader').hide();
                             swal("Something went wrong");
                         },
